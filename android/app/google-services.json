@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "933993499690",
+    "project_id": "push-notification-fbf02",
+    "storage_bucket": "push-notification-fbf02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933993499690:android:07b94579c9d134a2634753",
+        "android_client_info": {
+          "package_name": "com.splfcm.fcm_push_notification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933993499690-tdl9p7nr19iir2ud3gp1q6au07ffvveo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKvcnt_PMM9NZdUSvKpLqb2AXocRPKzRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933993499690-tdl9p7nr19iir2ud3gp1q6au07ffvveo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
