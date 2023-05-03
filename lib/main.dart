@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'firebase_options.dart';
 
@@ -100,6 +101,8 @@ void showFlutterNotification(RemoteMessage message) async {
       ),
       iOS: DarwinNotificationDetails(presentSound: true));
 
+  /// Show Message Notification
+  /// AIzaSyAcpkVzT0-AAIAuL-JLd9XVVGl-1wtJEGc
   flutterLocalNotificationsPlugin.show(
       Random().nextInt(100),
       message.notification!.title!.toString(),
@@ -147,6 +150,19 @@ class Application extends StatefulWidget {
 class _Application extends State<Application> {
   String? initialMessage;
 
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(23.049485, 72.517041),
+    zoom: 14.4746,
+  );
+
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(23.049485, 72.517041),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
   @override
   void initState() {
     super.initState();
@@ -165,6 +181,21 @@ class _Application extends State<Application> {
       print('A new onMessageOpenedApp event was published!');
     });
   }
+
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{
+    MarkerId('marker_id_1'): Marker(
+      markerId: MarkerId('marker_id_1'),
+      position: LatLng(23.049485, 72.517041),
+      infoWindow: InfoWindow(title: 'marker_id_1', snippet: '*'),
+      onTap: () {
+        //_onMarkerTapped(markerId);
+        print('Marker Tapped');
+      },
+      onDragEnd: (LatLng position) {
+        print('Drag Ended');
+      },
+    )
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +227,21 @@ class _Application extends State<Application> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 50,
+              ),
               //MetaCard('Message Stream', MessageList()),
+              SizedBox(
+                height: 550,
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  markers: Set<Marker>.of(markers.values),
+                  initialCameraPosition: _kGooglePlex,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                ),
+              ),
             ],
           ),
         ),
