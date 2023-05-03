@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -100,9 +99,12 @@ void showFlutterNotification(RemoteMessage message) async {
         playSound: true,
       ),
       iOS: DarwinNotificationDetails(presentSound: true));
-  Map<String, dynamic> data = message.data;
-  flutterLocalNotificationsPlugin.show(Random().nextInt(100), data['alert'],
-      data['message'], notificationDetails);
+
+  flutterLocalNotificationsPlugin.show(
+      Random().nextInt(100),
+      message.notification!.title!.toString(),
+      message.notification!.body!.toString(),
+      notificationDetails);
 }
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -143,9 +145,7 @@ class Application extends StatefulWidget {
 }
 
 class _Application extends State<Application> {
-  String? _token;
   String? initialMessage;
-  bool _resolved = false;
 
   @override
   void initState() {
@@ -154,7 +154,6 @@ class _Application extends State<Application> {
     FirebaseMessaging.instance.getInitialMessage().then(
           (value) => setState(
             () {
-              _resolved = true;
               initialMessage = value?.data.toString();
             },
           ),
