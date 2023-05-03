@@ -183,10 +183,10 @@ class _Application extends State<Application> {
   }
 
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{
-    MarkerId('marker_id_1'): Marker(
-      markerId: MarkerId('marker_id_1'),
-      position: LatLng(23.049485, 72.517041),
-      infoWindow: InfoWindow(title: 'marker_id_1', snippet: '*'),
+    const MarkerId('marker_id_1'): Marker(
+      markerId: const MarkerId('marker_id_1'),
+      position: const LatLng(23.049485, 72.517041),
+      infoWindow: const InfoWindow(title: 'marker_id_1', snippet: '*'),
       onTap: () {
         //_onMarkerTapped(markerId);
         print('Marker Tapped');
